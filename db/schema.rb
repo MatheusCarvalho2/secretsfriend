@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_133738) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_10_141005) do
+  create_table "draws", force: :cascade do |t|
+    t.string "title"
+    t.string "min_value"
+    t.string "max_value"
+    t.datetime "date_draws"
+    t.datetime "date_present"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
