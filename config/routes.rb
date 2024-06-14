@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :draws, only: [:new, :create]
+  resources :draw_users
 end

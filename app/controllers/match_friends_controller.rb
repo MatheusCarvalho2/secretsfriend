@@ -1,0 +1,2 @@
+class MatchFriendsController < ApplicationController
+end
