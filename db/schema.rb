@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_14_131910) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_142140) do
   create_table "draw_users", force: :cascade do |t|
     t.integer "draw_id", null: false
     t.integer "user_id", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_14_131910) do
     t.integer "users_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "id_friends"
     t.index ["draw_users_id"], name: "index_match_friends_on_draw_users_id"
     t.index ["users_id"], name: "index_match_friends_on_users_id"
   end
@@ -57,5 +58,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_14_131910) do
   add_foreign_key "draw_users", "draws"
   add_foreign_key "draw_users", "users"
   add_foreign_key "match_friends", "draw_users", column: "draw_users_id"
+  add_foreign_key "match_friends", "users", column: "id_friends"
   add_foreign_key "match_friends", "users", column: "users_id"
 end
