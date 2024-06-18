@@ -16,7 +16,7 @@ RSpec.describe "User creat new draw", type: :request do
       expect(response).to have_http_status(:created)
     end
     it "com erro" do
-      user= User.create(email: "teste@teste.com", password: "123123", password_confirmation: "123123")
+      user = User.create(email: "teste@teste.com", password: "123123", password_confirmation: "123123")
       sign_in user
       post "/draws", params: {
         "title": nil,

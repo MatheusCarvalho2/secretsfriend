@@ -1,4 +1,4 @@
 class MatchFriend < ApplicationRecord
-  belongs_to :draw_users
-  belongs_to :users
+  belongs_to :draw_user
+  belongs_to :user
 end

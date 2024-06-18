@@ -1,4 +1,4 @@
-class DrawUserController < ApplicationController
+class DrawUsersController < ApplicationController
   def create
     draw_user = DrawUser.new(
       owner: params[:owner], # if para setar o valor
