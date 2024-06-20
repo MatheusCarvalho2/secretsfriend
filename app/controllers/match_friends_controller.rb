@@ -1,8 +1,9 @@
 class MatchFriendsController < ApplicationController
   def create
     match_friends = MatchFriend.new(
-      draw_user_id: params[:draw_user_id],
-      user_id: params[:user_id],
+      draws: params[:draws],
+      user: params[:user],
+      secret_friend: params[:secret_friend],
     )
     if match_friends.save
       return render json: match_friends, status: :created

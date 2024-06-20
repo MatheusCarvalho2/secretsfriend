@@ -29,8 +29,8 @@ RSpec.describe "Draw User", type: :request do
       expect(response).to have_http_status(:created)
     end
 
-    it "Com erro" do
-      user = User.create( # adicionar nome ao user??
+    it "com erro" do
+      user = User.create(
         email: "teste@teste.com",
         password: "123123",
         password_confirmation: "123123"

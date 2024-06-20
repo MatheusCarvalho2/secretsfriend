@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   resources :draws, only: [:new, :create]
   resources :draw_users
+  resources :match_friends
 
 end
