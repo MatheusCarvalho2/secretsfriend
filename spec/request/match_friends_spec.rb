@@ -17,7 +17,7 @@ RSpec.describe "Draw User", type: :request do
       )
       sign_in user2
 
-      draws = Draw.create(
+      draw = Draw.create(
         title: "Sorteio da firma",
         min_value: "50,00",
         max_value: "50,00",
@@ -25,13 +25,22 @@ RSpec.describe "Draw User", type: :request do
         date_present: "15/06/2024",
         description: "O sorteio"
       )
-      draws.save
+
+      draw_user = DrawUser.create!(
+        owner: true,
+        suggestion: " ",
+        user: user1,
+        draw: draw,
+      )
 
       post "/match_friends", params: {
-        "draws": draws,
-        "user": user1,
-        "secret_friend": user2
+        draw_users: draw_user,
+        users: user1,
+        id_friends: user2
       }
+      p "***************************"
+      p response.body
+      p "***************************"
       expect(response).to have_http_status(:created)
     end
   end
