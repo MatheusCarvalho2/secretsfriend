@@ -34,13 +34,11 @@ RSpec.describe "Draw User", type: :request do
       )
 
       post "/match_friends", params: {
-        draw_users: draw_user,
-        users: user1,
-        id_friends: user2
+        draw_user_id: draw_user.id,
+        user_id: user1.id,
+        id_friends: user2.id
       }
-      p "***************************"
-      p response.body
-      p "***************************"
+     
       expect(response).to have_http_status(:created)
     end
   end
