@@ -1,4 +1,6 @@
-class CreateDraws < ActiveRecord::Migration[7.1]
+# frozen_string_literal: true
+
+class CreateDraws < ActiveRecord::Migration[7.1] # rubocop:disable Style/Documentation
   def change
     create_table :draws do |t|
       t.string :title

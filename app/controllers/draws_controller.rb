@@ -1,5 +1,7 @@
-class DrawsController < ApplicationController
-  def create
+# frozen_string_literal: true
+
+class DrawsController < ApplicationController # rubocop:disable Style/Documentation
+  def create # rubocop:disable Metrics/AbcSize
     draw = Draw.create(
       title: params[:title],
       min_value: params[:min_value],
@@ -8,10 +10,8 @@ class DrawsController < ApplicationController
       date_present: params[:date_present],
       description: params[:description]
     )
-    if draw.save
-      return render json: draw, status: :created
-    else
-      return render json: draw.errors, status: :bad_request
-    end
+    return render json: draw, status: :created if draw.save
+
+    render json: draw.errors, status: :bad_request
   end
 end

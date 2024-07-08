@@ -1,4 +1,6 @@
-class User < ApplicationRecord
+# frozen_string_literal: true
+
+class User < ApplicationRecord # rubocop:disable Style/Documentation
   has_many :draw_users
   has_many :draws, through: :draw_users
   # Include default devise modules. Others available are:
