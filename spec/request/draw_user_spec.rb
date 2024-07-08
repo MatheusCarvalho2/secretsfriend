@@ -5,7 +5,11 @@ require 'rails_helper'
 RSpec.describe 'Draw User', type: :request do # rubocop:disable Metrics/BlockLength
   describe 'relacionando sorteio ao usuario' do # rubocop:disable Metrics/BlockLength
     it 'com sucesso' do
-      user = User.create(:user)
+      user = User.create( # adicionar nome ao user??
+        email: 'teste@teste.com',
+        password: '123123',
+        password_confirmation: '123123'
+      )
       sign_in user
 
       draw = Draw.create(
