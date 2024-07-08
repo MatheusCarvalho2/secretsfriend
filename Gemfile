@@ -60,6 +60,7 @@ group :development do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rubocop', require: false
+  gem 'shoulda-matchers'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
