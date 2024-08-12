@@ -28,6 +28,8 @@ gem 'stimulus-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
+gem 'jsonapi-serializer'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -59,6 +61,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rack-cors'
   gem 'rubocop', require: false
   gem 'shoulda-matchers'
   gem 'web-console'

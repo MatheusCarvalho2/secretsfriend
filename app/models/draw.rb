@@ -6,12 +6,14 @@ class Draw < ApplicationRecord # rubocop:disable Style/Documentation
   validates :title, :min_value, :max_value, :date_draws, :date_present, :description, presence: true
 
   def assign_secret_friends
-    participants = users.to_a
+    participants = users
+    p participants
 
     shuffled_participants = participants.shuffle
     # incluir condição com data para sorteio
+    p shuffled_participants.class
     shuffled_participants.each_with_index do |user, _index|
-      random_index = (0...shuffled_participants).to_a.sample
+      random_index = (0...(shuffled_participants.length - 1)).to_a.sample
       secret_friend = shuffled_participants[random_index]
       MatchFriend.create!(draw: self, user: user, secret_friend: secret_friend) # rubocop:disable Style/HashSyntax
     end
