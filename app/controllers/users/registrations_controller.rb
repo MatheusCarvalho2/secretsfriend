@@ -2,8 +2,13 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController # rubocop:disable Style/ClassAndModuleChildren,Style/Documentation
   respond_to :json
+  before_action :skip_session_storage
 
   private
+
+  def skip_session_storage
+    request.session_options[:skip] = true
+  end
 
   def respond_with(resource, _opts = {}) # rubocop:disable Metrics/MethodLength
     if resource.persisted?

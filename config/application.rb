@@ -26,6 +26,15 @@ module Secretsfriends
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.api_only = true
+
+    config.action_controller.include_all_helpers = false
+
+    Rails.application.config.session_store :cookie_store, key: '_your_app_session'
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+
     # I18n
     config.i18n.default_locale = :'pt-BR'
     # Carrega todos os arquivos de tradução presentes em config/locales
