@@ -11,11 +11,10 @@ class Draw < ApplicationRecord # rubocop:disable Style/Documentation
 
     shuffled_participants = participants.shuffle
     # incluir condição com data para sorteio
-    p shuffled_participants.class
-    shuffled_participants.each_with_index do |user, _index|
+    shuffled_participants.each do |user|
       random_index = (0...(shuffled_participants.length - 1)).to_a.sample
       secret_friend = shuffled_participants[random_index]
-      MatchFriend.create!(draw: self, user: user, secret_friend: secret_friend) # rubocop:disable Style/HashSyntax
+      MatchFriend.new(draw_user_id: draw_users, user_id: user, id_friends: secret_friend)
     end
   end
 end

@@ -44,7 +44,9 @@ RSpec.describe Draw, type: :model do # rubocop:disable Metrics/BlockLength
     )
 
     response = draw.assign_secret_friends
+    p '======================='
     p response
-    expect(response).to eq(' ')
+    p '======================='
+    expect(response).to eq([user4]) # ??????
   end
 end
