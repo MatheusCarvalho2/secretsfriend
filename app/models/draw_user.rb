@@ -3,5 +3,5 @@
 class DrawUser < ApplicationRecord # rubocop:disable Style/Documentation
   belongs_to :draw
   belongs_to :user
-  validates :owner, presence: true
+  validates :owner, inclusion: [true, false]
 end

@@ -3,5 +3,4 @@
 class MatchFriend < ApplicationRecord # rubocop:disable Style/Documentation
   belongs_to :draw_user
   belongs_to :user
-  belongs_to :draw
 end
