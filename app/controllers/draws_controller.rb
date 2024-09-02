@@ -2,7 +2,7 @@
 
 class DrawsController < ApplicationController # rubocop:disable Style/Documentation
   def create # rubocop:disable Metrics/AbcSize
-    draw = Draw.create(
+    draw = Draw.new(
       title: params[:title],
       min_value: params[:min_value],
       max_value: params[:max_value],
