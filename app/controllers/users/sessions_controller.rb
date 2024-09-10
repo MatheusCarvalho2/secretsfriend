@@ -2,18 +2,26 @@
 
 module Users
   class SessionsController < Devise::SessionsController # rubocop:disable Style/Documentation
+    include RackSessionsFix
     respond_to :json
 
     private
 
     def respond_with(resource, _opts = {})
+      puts resource
       render json: {
         status: { code: 200, message: 'Logged sucessfully.' },
         data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
       }, status: :ok
     end
 
-    def respond_to_on_destroy # rubocop:disable Metrics/MethodLength
+    def respond_to_on_destroy # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+      if request.headers['Authorization'].present?
+        jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last,
+                                 Rails.application.credentials.jwt[:secret_key]).first
+        current_user = User.find(jwt_payload['sub'])
+      end
+
       if current_user
         render json: {
           status: 200,
@@ -26,28 +34,5 @@ module Users
         }, status: :unauthorized
       end
     end
-    # before_action :configure_sign_in_params, only: [:create]
-
-    # GET /resource/sign_in
-    # def new
-    #   super
-    # end
-
-    # POST /resource/sign_in
-    # def create
-    #   super
-    # end
-
-    # DELETE /resource/sign_out
-    # def destroy
-    #   super
-    # end
-
-    # protected
-
-    # If you have extra params to permit, append them to the sanitizer.
-    # def configure_sign_in_params
-    #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-    # end
   end
 end

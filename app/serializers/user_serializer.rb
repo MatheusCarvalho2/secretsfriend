@@ -1,4 +1,6 @@
-class UserSerializer # rubocop:disable Style/FrozenStringLiteralComment,Style/Documentation
+# frozen_string_literal: true
+
+class UserSerializer # rubocop:disable Style/Documentation
   include JSONAPI::Serializer
-  attributes :id, :email, :created_at
+  attributes :id, :email, :name
 end
