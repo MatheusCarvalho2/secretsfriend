@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'New Padawan', type: :request do
+RSpec.describe 'Novo usuário', type: :request do
   describe 'usuario faz novo registro' do
     it 'com sucesso' do
       post '/signup', params: {

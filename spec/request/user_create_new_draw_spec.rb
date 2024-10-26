@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User creat new draw', type: :request do # rubocop:disable Metrics/BlockLength
+RSpec.describe 'Novo sorteio', type: :request do # rubocop:disable Metrics/BlockLength
   describe 'usuario cria novo sorteio' do # rubocop:disable Metrics/BlockLength
     it 'com sucesso' do
       user = User.create(
