@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Draw User', type: :request do # rubocop:disable Metrics/BlockLength
-  describe 'relacionando sorteio ao usuario' do # rubocop:disable Metrics/BlockLength
+RSpec.describe 'Criando relacionamento entre user e draw_user', type: :request do # rubocop:disable Metrics/BlockLength
+  describe 'usuário criando sorteio' do # rubocop:disable Metrics/BlockLength
     it 'com sucesso' do
       user = User.create( # adicionar nome ao user??
         email: 'teste@teste.com',
