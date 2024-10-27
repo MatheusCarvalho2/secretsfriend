@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   resources :draws, only: [:new, :create] # rubocop:disable Style/SymbolArray
   resources :draw_users
   resources :match_friends
+  resources :participants
 end

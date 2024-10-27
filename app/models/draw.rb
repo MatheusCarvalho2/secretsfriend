@@ -3,6 +3,7 @@
 class Draw < ApplicationRecord # rubocop:disable Style/Documentation
   has_many :draw_users
   has_many :users, through: :draw_users
+  has_many :participants, dependent: :destroy
   validates :title, :min_value, :max_value, :date_draws, :date_present, :description, presence: true
 
   def assign_secret_friends
