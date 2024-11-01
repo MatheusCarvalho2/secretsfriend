@@ -8,7 +8,7 @@ module Users
     private
 
     def respond_with(resource, _opts = {})
-      puts resource
+      puts resource.attributes
       render json: {
         status: { code: 200, message: 'Logged sucessfully.' },
         data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
