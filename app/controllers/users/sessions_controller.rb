@@ -9,6 +9,10 @@ module Users
 
     def respond_with(resource, _opts = {})
       puts resource.attributes
+      user_serializer = UserSerializer.new(resource).serializable_hash[:data][:attributes]
+      p '------------------------------'
+      p user_serializer
+      p '------------------------------'
       render json: {
         status: { code: 200, message: 'Logged sucessfully.' },
         data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
@@ -17,12 +21,22 @@ module Users
 
     def respond_to_on_destroy # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       if request.headers['Authorization'].present?
+        p '+++++++++++++++++++++++++++++++++'
+        p request.headers['Authorization'].split(' ').last
+        p '+++++++++++++++++++++++++++++++++'
+        p Rails.application.credentials.jwt[:secret_key]
+        p '+++++++++++++++++++++++++++++++++'
+        # jwt_payload = request.headers['Authorization'].split(' ').last
         jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last,
                                  Rails.application.credentials.jwt[:secret_key]).first
         current_user = User.find(jwt_payload['sub'])
+        # current_user = User.find(jwt_payload)
       end
 
       if current_user
+        p '+++++++++++++++++++++++++++++++++'
+        p current_user
+        p '+++++++++++++++++++++++++++++++++'
         render json: {
           status: 200,
           message: 'Logged out sucessfully.'

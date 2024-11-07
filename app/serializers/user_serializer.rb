@@ -2,5 +2,5 @@
 
 class UserSerializer # rubocop:disable Style/Documentation
   include JSONAPI::Serializer
-  attributes :id, :email, :name, :jti
+  attributes :id, :email, :name
 end
