@@ -7,8 +7,10 @@ module Users
 
     private
 
-    def respond_with(resource, _opts = {})
+    def respond_with(resource, _opts = {}) # rubocop:disable Metrics/MethodLength
+      p '++++++++++++++++++++++++++++'
       puts resource.attributes
+      p '++++++++++++++++++++++++++++++'
       user_serializer = UserSerializer.new(resource).serializable_hash[:data][:attributes]
       p '------------------------------'
       p user_serializer
@@ -26,11 +28,11 @@ module Users
         p '+++++++++++++++++++++++++++++++++'
         p Rails.application.credentials.jwt[:secret_key]
         p '+++++++++++++++++++++++++++++++++'
-        # jwt_payload = request.headers['Authorization'].split(' ').last
-        jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last,
-                                 Rails.application.credentials.jwt[:secret_key]).first
-        current_user = User.find(jwt_payload['sub'])
-        # current_user = User.find(jwt_payload)
+        jwt_payload = request.headers['Authorization'].split(' ').last
+        # jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last,
+        #                          Rails.application.credentials.jwt[:secret_key]).first
+        # current_user = User.find(jwt_payload['sub'])
+        current_user = User.where(jti: jwt_payload['sub']).last
       end
 
       if current_user
