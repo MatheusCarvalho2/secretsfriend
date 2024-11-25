@@ -27,7 +27,6 @@ module Users
       if request.headers['Authorization'].present?
         Rails.logger.info(request.headers['Authorization'].split(' ').last)
         Rails.logger.info(Rails.application.credentials.jwt[:secret_key])
-        # jwt_payload = request.headers['Authorization'].split(' ').last
         jwt_payload = JWT.decode(
           request.headers['Authorization'].split(' ').last,
           Rails.application.credentials.jwt[:secret_key],
@@ -35,7 +34,6 @@ module Users
           { algorithm: 'HS256' }
         ).first
         current_user = User.find(jwt_payload['sub'])
-        # current_user = User.where(jti: jwt_payload['sub']).last
       end
 
       if current_user
