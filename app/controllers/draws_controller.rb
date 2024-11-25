@@ -14,4 +14,9 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
 
     render json: draw.errors, status: :bad_request
   end
+
+  def show
+    draw = Draw.where(id: params[:id]).first
+    render json: draw.participants, status: :ok
+  end
 end

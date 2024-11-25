@@ -17,6 +17,7 @@ class Draw < ApplicationRecord # rubocop:disable Style/Documentation
       secret_friend = shuffled_participants[random_index]
       MatchFriend.new(draw_user_id: draw_users, user_id: user, id_friends: secret_friend)
     end
+    secret_friend
   end
 end
 
