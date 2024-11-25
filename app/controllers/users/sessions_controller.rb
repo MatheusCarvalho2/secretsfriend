@@ -7,14 +7,14 @@ module Users
 
     private
 
-    def respond_with(resource, _opts = {}) # rubocop:disable Metrics/MethodLength
-      p '++++++++++++++++++++++++++++'
-      puts resource.attributes
-      p '++++++++++++++++++++++++++++++'
+    def respond_with(resource, _opts = {}) # rubocop:disable Metrics/AbcSize
+      resource.update!(jti: SecureRandom.uuid)
+      Rails.logger.info("Authorization Header: #{request.headers['Authorization']}")
+      Rails.logger.info("Resource Attributes: #{resource.attributes}")
+
       user_serializer = UserSerializer.new(resource).serializable_hash[:data][:attributes]
-      p '------------------------------'
-      p user_serializer
-      p '------------------------------'
+      Rails.logger.info("Serialized User: #{user_serializer}")
+
       render json: {
         status: { code: 200, message: 'Logged sucessfully.' },
         data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
@@ -22,23 +22,24 @@ module Users
     end
 
     def respond_to_on_destroy # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+      Rails.logger.info("Authorization Header: #{request.headers['Authorization']}")
+
       if request.headers['Authorization'].present?
-        p '+++++++++++++++++++++++++++++++++'
-        p request.headers['Authorization'].split(' ').last
-        p '+++++++++++++++++++++++++++++++++'
-        p Rails.application.credentials.jwt[:secret_key]
-        p '+++++++++++++++++++++++++++++++++'
-        jwt_payload = request.headers['Authorization'].split(' ').last
-        # jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last,
-        #                          Rails.application.credentials.jwt[:secret_key]).first
-        # current_user = User.find(jwt_payload['sub'])
-        current_user = User.where(jti: jwt_payload['sub']).last
+        Rails.logger.info(request.headers['Authorization'].split(' ').last)
+        Rails.logger.info(Rails.application.credentials.jwt[:secret_key])
+        # jwt_payload = request.headers['Authorization'].split(' ').last
+        jwt_payload = JWT.decode(
+          request.headers['Authorization'].split(' ').last,
+          Rails.application.credentials.jwt[:secret_key],
+          true,
+          { algorithm: 'HS256' }
+        ).first
+        current_user = User.find(jwt_payload['sub'])
+        # current_user = User.where(jti: jwt_payload['sub']).last
       end
 
       if current_user
-        p '+++++++++++++++++++++++++++++++++'
-        p current_user
-        p '+++++++++++++++++++++++++++++++++'
+        Rails.logger.info("current_user: #{current_user}")
         render json: {
           status: 200,
           message: 'Logged out sucessfully.'
