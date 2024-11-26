@@ -1,0 +1,12 @@
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+      - ./storage:/app/storage
+    ports:
+      - "3000:3000"
+    environment:
+      - .env
