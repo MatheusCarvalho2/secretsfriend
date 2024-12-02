@@ -10,67 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_241_026_141_306) do # rubocop:disable Metrics/BlockLength
-  create_table 'draw_users', force: :cascade do |t|
-    t.integer 'draw_id', null: false
-    t.integer 'user_id', null: false
-    t.boolean 'owner'
-    t.text 'suggestion'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['draw_id'], name: 'index_draw_users_on_draw_id'
-    t.index ['user_id'], name: 'index_draw_users_on_user_id'
+ActiveRecord::Schema[7.1].define(version: 2024_12_02_140424) do
+  create_table "draw_users", force: :cascade do |t|
+    t.integer "draw_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "owner"
+    t.text "suggestion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["draw_id"], name: "index_draw_users_on_draw_id"
+    t.index ["user_id"], name: "index_draw_users_on_user_id"
   end
 
-  create_table 'draws', force: :cascade do |t|
-    t.string 'title'
-    t.string 'min_value'
-    t.string 'max_value'
-    t.datetime 'date_draws'
-    t.datetime 'date_present'
-    t.string 'description'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "draws", force: :cascade do |t|
+    t.string "title"
+    t.string "min_value"
+    t.string "max_value"
+    t.datetime "date_draws"
+    t.datetime "date_present"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'match_friends', force: :cascade do |t|
-    t.integer 'draw_user_id', null: false
-    t.integer 'user_id', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.integer 'id_friends'
-    t.index ['draw_user_id'], name: 'index_match_friends_on_draw_user_id'
-    t.index ['user_id'], name: 'index_match_friends_on_user_id'
+  create_table "match_friends", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "id_friends"
+    t.integer "participant_id", null: false
+    t.integer "draw_id", null: false
+    t.index ["draw_id"], name: "index_match_friends_on_draw_id"
+    t.index ["participant_id"], name: "index_match_friends_on_participant_id"
   end
 
-  create_table 'participants', force: :cascade do |t|
-    t.string 'name'
-    t.string 'email', null: false
-    t.integer 'draw_id', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['draw_id'], name: 'index_participants_on_draw_id'
+  create_table "participants", force: :cascade do |t|
+    t.string "name"
+    t.string "email", null: false
+    t.integer "draw_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["draw_id"], name: "index_participants_on_draw_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email', default: '', null: false
-    t.string 'encrypted_password', default: '', null: false
-    t.string 'reset_password_token'
-    t.datetime 'reset_password_sent_at'
-    t.datetime 'remember_created_at'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'name'
-    t.string 'jti'
-    t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['jti'], name: 'index_users_on_jti'
-    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "jti"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["jti"], name: "index_users_on_jti"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key 'draw_users', 'draws'
-  add_foreign_key 'draw_users', 'users'
-  add_foreign_key 'match_friends', 'draw_users'
-  add_foreign_key 'match_friends', 'users'
-  add_foreign_key 'match_friends', 'users', column: 'id_friends'
-  add_foreign_key 'participants', 'draws'
+  add_foreign_key "draw_users", "draws"
+  add_foreign_key "draw_users", "users"
+  add_foreign_key "match_friends", "draws"
+  add_foreign_key "match_friends", "participants"
+  add_foreign_key "match_friends", "users", column: "id_friends"
+  add_foreign_key "participants", "draws"
 end
