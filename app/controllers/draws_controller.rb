@@ -17,6 +17,7 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
 
   def show
     draw = Draw.where(id: params[:id]).first
-    render json: draw.participants, status: :ok
+    secret_friend = draw.assign_secret_friends
+    render json: secret_friend, status: :ok
   end
 end
