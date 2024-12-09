@@ -8,7 +8,8 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
       max_value: params[:max_value],
       date_draws: params[:date_draws],
       date_present: params[:date_present],
-      description: params[:description]
+      description: params[:description],
+      user_id: params[:user_id]
     )
     return render json: draw, status: :created if draw.save
 
