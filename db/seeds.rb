@@ -23,5 +23,6 @@ require 'faker'
                max_value: max_value,
                date_draws: date_draws,
                date_present: date_present,
-               description: description)
+               description: description,
+               user: User.all.first)
 end
