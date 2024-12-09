@@ -2,8 +2,7 @@
 
 class User < ApplicationRecord # rubocop:disable Style/Documentation
   include Devise::JWT::RevocationStrategies::JTIMatcher
-  has_many :draw_users
-  has_many :draws, through: :draw_users
+  has_many :draws
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -10,18 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_02_140424) do
-  create_table "draw_users", force: :cascade do |t|
-    t.integer "draw_id", null: false
-    t.integer "user_id", null: false
-    t.boolean "owner"
-    t.text "suggestion"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["draw_id"], name: "index_draw_users_on_draw_id"
-    t.index ["user_id"], name: "index_draw_users_on_user_id"
-  end
-
+ActiveRecord::Schema[7.1].define(version: 2024_12_09_144306) do
   create_table "draws", force: :cascade do |t|
     t.string "title"
     t.string "min_value"
@@ -31,16 +20,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_140424) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_draws_on_user_id"
   end
 
   create_table "match_friends", force: :cascade do |t|
+    t.integer "draw_id", null: false
+    t.integer "participant1_id", null: false
+    t.integer "participant2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "id_friends"
-    t.integer "participant_id", null: false
-    t.integer "draw_id", null: false
     t.index ["draw_id"], name: "index_match_friends_on_draw_id"
-    t.index ["participant_id"], name: "index_match_friends_on_participant_id"
+    t.index ["participant1_id"], name: "index_match_friends_on_participant1_id"
+    t.index ["participant2_id"], name: "index_match_friends_on_participant2_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -67,10 +59,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_140424) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "draw_users", "draws"
-  add_foreign_key "draw_users", "users"
+  add_foreign_key "draws", "users"
   add_foreign_key "match_friends", "draws"
-  add_foreign_key "match_friends", "participants"
-  add_foreign_key "match_friends", "users", column: "id_friends"
+  add_foreign_key "match_friends", "participants", column: "participant1_id"
+  add_foreign_key "match_friends", "participants", column: "participant2_id"
   add_foreign_key "participants", "draws"
 end
