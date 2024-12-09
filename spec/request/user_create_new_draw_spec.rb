@@ -17,7 +17,8 @@ RSpec.describe 'Novo sorteio', type: :request do # rubocop:disable Metrics/Block
         "max_value": '50,00',
         "date_draws": '10/06/2024',
         "date_present": '15/06/2024',
-        "description": 'O sorteio'
+        "description": 'O sorteio',
+        "user_id": user.id
       }
       expect(response).to have_http_status(:created)
     end
@@ -34,7 +35,8 @@ RSpec.describe 'Novo sorteio', type: :request do # rubocop:disable Metrics/Block
         "max_value": nil,
         "date_draws": nil,
         "date_present": nil,
-        "description": 'O sorteio'
+        "description": 'O sorteio',
+        "user_id": user.id
       }
       expect(response).to have_http_status(:bad_request)
     end
