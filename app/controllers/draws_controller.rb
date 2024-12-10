@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DrawsController < ApplicationController # rubocop:disable Style/Documentation
-  def create # rubocop:disable Metrics/AbcSize
+  def create # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     draw = Draw.new(
       title: params[:title],
       min_value: params[:min_value],
@@ -18,7 +18,13 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
 
   def show
     draw = Draw.where(id: params[:id]).first
+    p '++++++++++++++++++++++++++++++++++++'
+    p draw
+    p '++++++++++++++++++++++++++++++++++++'
     secret_friend = draw.assign_secret_friends
+    p '++++++++++++++++++++++++++++++++++++'
+    p secret_friend
+    p '++++++++++++++++++++++++++++++++++++'
     render json: secret_friend, status: :ok
   end
 end
