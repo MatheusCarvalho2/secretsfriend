@@ -6,18 +6,11 @@ RSpec.describe 'Salvando amigo secreto em match_fiend', type: :request do # rubo
   describe 'Sorteio' do # rubocop:disable Metrics/BlockLength
     it 'com sucesso' do # rubocop:disable Metrics/BlockLength
       user1 = User.create(
-        email: 'user1@teste.com',
+        email: 'user@teste.com',
         password: 'dkjgn541',
         password_confirmation: 'dkjgn541'
       )
       sign_in user1
-
-      user2 = User.create(
-        email: 'user2@teste.com',
-        password: 'salfjna',
-        password_confirmation: 'salfjna'
-      )
-      sign_in user2
 
       draw = Draw.create(
         title: 'Sorteio da firma',
@@ -28,17 +21,22 @@ RSpec.describe 'Salvando amigo secreto em match_fiend', type: :request do # rubo
         description: 'O sorteio'
       )
 
-      draw_user = DrawUser.create!(
-        owner: true,
-        suggestion: ' ',
-        user: user1,
-        draw: draw # rubocop:disable Style/HashSyntax
+      participant1 = Participant.new(
+        name: '',
+        email: 'participant1@email.com',
+        draw:
       )
 
-      post '/match_friends', params: {
-        draw_user_id: draw_user.id,
-        user_id: user1.id,
-        id_friends: user2.id
+      participant2 = Participant.new(
+        name: '',
+        email: 'participant2@email.com',
+        draw:
+      )
+
+      post "/draws/#{draw.id}", params: {
+        'draw_id': draw.id,
+        'participant1_id': participant1.id,
+        'participant2_id': participant2.id
       }
 
       expect(response).to have_http_status(:created)

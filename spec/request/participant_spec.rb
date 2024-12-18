@@ -25,6 +25,7 @@ RSpec.describe 'Salvando participantes na tabela', type: :request do # rubocop:d
         email: 'teste@teste.com',
         draw:
       )
+
       expect(participant).to be_valid
     end
 
