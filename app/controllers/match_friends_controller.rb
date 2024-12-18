@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MatchFriendsController < ApplicationController # rubocop:disable Style/Documentation
-  def create # rubocop:disable Metrics/MethodLength
+  def create
     match_friends = MatchFriend.new(
       draw_id: params[:draw_id],
       participant1_id: params[:participant1_id],
@@ -9,9 +9,6 @@ class MatchFriendsController < ApplicationController # rubocop:disable Style/Doc
     )
 
     if match_friends.save
-      p '*********************************'
-      p match_friends
-      p '*********************************'
       render json: match_friends, status: :created
     else
       render json: match_friends.errors, status: :unprocessable_entity
