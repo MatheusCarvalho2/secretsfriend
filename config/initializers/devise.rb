@@ -15,6 +15,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '4505a9718fc05c6811c5b2917badd503087a3ce271903377c9fd9f22e411fcad29b6f4a23b0701f48f3bac1061b2231c96a747c1727bd32d2d34f6e494633b03' # rubocop:disable Layout/LineLength
+  config.secret_key = ENV['DEVISE_SECRET_KEY']
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
