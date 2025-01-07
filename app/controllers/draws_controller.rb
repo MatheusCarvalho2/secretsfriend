@@ -25,4 +25,15 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
 
     render json: secret_friend, status: :ok
   end
+
+  def email
+    draw = Draw.where(id: params[:id]).first
+    secret_friend = MatchFriend.where(draw_id: draw)
+    secret_friend.each do |match|
+      p1 = match.participant1.email.to_s
+      p2 = match.participant2.email.to_s
+      UserMailer.send_secret_friend(p1, p2).deliver_now
+    end
+    render json: {}, status: :ok
+  end
 end

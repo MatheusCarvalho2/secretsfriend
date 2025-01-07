@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root 'home#index'
 
+  post 'email' => 'draws#email'
+
   resources :draws, only: [:new, :create, :show] # rubocop:disable Style/SymbolArray
   resources :draw_users
   resources :match_friends
