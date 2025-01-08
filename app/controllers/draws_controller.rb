@@ -25,4 +25,31 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
 
     render json: secret_friend, status: :ok
   end
+
+  def format_email(email)
+    regex = /^([a-zA-Z]+)(?:\.([a-zA-Z]+))?@.*$/
+    match_email = email.match(regex)
+
+    if match_email
+      first_name = match_email[1].capitalize
+      last_name = match_email[2]&.capitalize
+      last_name ? "#{first_name} #{last_name}" : first_name
+    else
+      email
+    end
+  end
+
+  def email
+    draw = Draw.find_by(id: params[:id])
+    return render json: { error: 'Draw not found' }, status: :not_found if draw.nil?
+
+    secret_friend_matches = MatchFriend.where(draw_id: draw.id)
+    secret_friend_matches.each do |match|
+      p1 = match.participant1.email
+      p2 = format_email(match.participant2.email)
+      UserMailer.send_secret_friend(p1, p2).deliver_now
+    end
+
+    render json: { message: 'E-mails enviados com sucesso' }, status: :ok
+  end
 end
