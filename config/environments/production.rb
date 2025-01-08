@@ -2,7 +2,7 @@
 
 require 'active_support/core_ext/integer/time'
 
-Rails.application.configure do
+Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -108,4 +108,6 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.asset_host = 'http://localhost:3000'
 end

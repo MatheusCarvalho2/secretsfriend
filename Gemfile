@@ -60,6 +60,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'faker'
   gem 'faraday'
+  gem 'letter_opener'
   gem 'rack-cors'
   gem 'rspec-rails'
 end
