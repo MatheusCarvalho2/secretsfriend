@@ -49,6 +49,7 @@ class UserMailer < ApplicationMailer # rubocop:disable Style/Documentation,Style
     @greeting = 'Seu amigo secreto chegou'
     @participant1 = participant1
     @participant2 = participant2
+    @draw_min_value = format_currency(draw.min_value)
     @draw_max_value = format_currency(draw.max_value)
     @draw_date = format_date(draw.date_present.to_s)
     @participant1_name = format_email(participant1)
