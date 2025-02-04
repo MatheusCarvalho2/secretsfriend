@@ -62,4 +62,20 @@ class UserMailer < ApplicationMailer # rubocop:disable Style/Documentation,Style
       template_path: 'user_mailer'
     )
   end
+
+  def reset_password_instructions(user, token, _opts = {})
+    @user = user
+    @token = token
+    puts '-------------------------'
+    puts "Token recebido: #{@token}"
+
+    @url = "http://localhost:3000/password/edit?reset_password_token=#{@token}"
+
+    puts "URL: #{@url}"
+    puts '-------------------------'
+
+    Rails.logger.error 'Token de redefinição de senha está NIL!' if @token.nil?
+
+    mail(to: @user.email, subject: 'Redefinição de senha')
+  end
 end
