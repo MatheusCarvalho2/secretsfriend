@@ -10,4 +10,8 @@ class User < ApplicationRecord # rubocop:disable Style/Documentation
          :jwt_authenticatable,
          jwt_revocation_strategy: self
   validates :email, presence: true
+
+  def send_devise_notification(notification, *args)
+    UserMailer.send(notification, self, *args).deliver_later
+  end
 end
