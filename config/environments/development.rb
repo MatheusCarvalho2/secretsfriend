@@ -9,7 +9,7 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 5173 }
 
   config.enable_reloading = true
 
@@ -91,5 +91,5 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
     enable_starttls_auto: true
   }
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.asset_host = 'http://localhost:3000'
+  config.action_mailer.asset_host = 'http://localhost:5173'
 end
