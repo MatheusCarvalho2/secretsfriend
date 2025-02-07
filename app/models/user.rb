@@ -12,6 +12,6 @@ class User < ApplicationRecord # rubocop:disable Style/Documentation
   validates :email, presence: true
 
   def send_devise_notification(notification, *args)
-    UserMailer.send(notification, self, *args).deliver_later
+    UserMailer.send(notification, self, *args).deliver_now
   end
 end
