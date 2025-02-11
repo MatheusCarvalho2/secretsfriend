@@ -15,5 +15,21 @@ module Users
       user.send_reset_password_instructions
       render json: { message: 'E-mail de recuperação enviado' }, status: :ok
     end
+
+    def update
+      user = User.reset_password_by_token(reset_password_params)
+
+      if user&.reset_password(params[:password], params[:password_confirmation])
+        render json: { message: 'Senha redefinida com sucesso!' }, status: :ok
+      else
+        render json: { error: 'Token inválido ou senha inválida.' }, status: :unprocessable_entity
+      end
+    end
+
+    private
+
+    def reset_password_params
+      params.permit(:reset_password_token, :password, :password_confirmation)
+    end
   end
 end
