@@ -19,17 +19,18 @@ module Users
     def update
       user = User.reset_password_by_token(reset_password_params)
 
-      if user&.reset_password(params[:password], params[:password_confirmation])
+      if user.errors.empty?
         render json: { message: 'Senha redefinida com sucesso!' }, status: :ok
       else
-        render json: { error: 'Token inválido ou senha inválida.' }, status: :unprocessable_entity
+        render json: { error: 'Token inválido ou senha inválida.', details: user.errors.full_messages },
+               status: :unprocessable_entity
       end
     end
 
     private
 
     def reset_password_params
-      params.permit(:reset_password_token, :password, :password_confirmation)
+      params.require(:user).permit(:reset_password_token, :password, :password_confirmation)
     end
   end
 end
