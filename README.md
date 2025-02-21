@@ -1,24 +1,41 @@
-# README
+# Amigo Secreto - Ruby on Rails - Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este projeto é uma aplicação web para sorteios entre amigos, utilizando Rails no backend e React no frontend.
 
-Things you may want to cover:
+## Tecnologias Utilizadas
 
-* Ruby version
+- [Rails](https://rubyonrails.org/)
+- [Docker](https://www.docker.com/)
+- Banco de dados: **SQLite**
 
-* System dependencies
+## Instalação e Configuração
 
-* Configuration
+### Pré-requisitos
+Antes de começar, você precisa ter instalado:
+- [Docker](https://docs.docker.com/get-started/get-docker/)
 
-* Database creation
+### Como rodar o projeto?
 
-* Database initialization
+1. Clone os repositórios do backend e do frontend :
+   ```bash
+   git clone git@github.com:MatheusCarvalho2/secretsfriend.git
+   git clone git@github.com:MatheusCarvalho2/secretsfriendsfrontend.git
+   ```
 
-* How to run the test suite
+2. Faça o build utilizando o docker e suba a aplicação :
+   **Precisa ser feito nos dois projetos separados**
+   ```bash
+   docker compose build
+   docker compose up
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. Acesse no navegador:
+   ```
+   http://localhost:5173
+   ```
 
-* Deployment instructions
+## Funcionalidades
 
-* ...
+- Cadastro e login de usuários
+- Sorteio de participantes
+- Envio do sorteio por e-mail
