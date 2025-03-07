@@ -3,7 +3,7 @@
 class DrawUsersController < ApplicationController # rubocop:disable Style/Documentation
   def create
     draw_user = DrawUser.new(
-      owner: params[:owner], # if para setar o valor
+      owner: params[:owner],
       suggestion: params[:suggestion],
       user_id: params[:user_id],
       draw_id: params[:draw_id]

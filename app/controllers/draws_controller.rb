@@ -9,7 +9,9 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
       date_draws: params[:date_draws],
       date_present: params[:date_present],
       description: params[:description],
-      user_id: params[:user_id]
+      user_id: params[:user_id],
+      location: params[:location],
+      other_information: params[:other_information]
     )
     return render json: draw, status: :created if draw.save
 
