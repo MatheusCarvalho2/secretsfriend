@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class DrawsController < ApplicationController # rubocop:disable Style/Documentation
+  def index
+    draws_user = Draw.where(user_id: params[:user_id])
+    render json: draws_user
+  end
+
   def create # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     draw = Draw.new(
       title: params[:title],

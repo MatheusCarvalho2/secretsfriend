@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   post 'email' => 'draws#email'
 
-  resources :draws, only: [:new, :create, :show] # rubocop:disable Style/SymbolArray
+  resources :draws
   resources :draw_users
   resources :match_friends
   resources :participants
