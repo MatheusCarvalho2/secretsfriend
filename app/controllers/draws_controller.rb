@@ -27,12 +27,10 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
     draw = Draw.where(id: params[:id]).first
     Rails.logger.info("draw: #{draw}")
     participants = draw.participants
-
-    p '___________________'
-    p participants
-    p '___________________'
-
-    render json: draw, status: :ok
+    render json: {
+      draw: draw,
+      participants: participants
+    }, status: :ok
   end
 
   def email
