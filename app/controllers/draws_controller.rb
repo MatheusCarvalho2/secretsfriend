@@ -26,11 +26,13 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
   def show
     draw = Draw.where(id: params[:id]).first
     Rails.logger.info("draw: #{draw}")
+    participants = draw.participants
 
-    secret_friend = draw.assign_secret_friends
-    Rails.logger.info("secret_friend: #{secret_friend}")
+    p '___________________'
+    p participants
+    p '___________________'
 
-    render json: secret_friend, status: :ok
+    render json: draw, status: :ok
   end
 
   def email
@@ -45,5 +47,15 @@ class DrawsController < ApplicationController # rubocop:disable Style/Documentat
     end
 
     render json: { message: 'E-mails enviados com sucesso' }, status: :ok
+  end
+
+  def assign_friends
+    draw = Draw.where(id: params[:id]).first
+    Rails.logger.info("draw: #{draw}")
+
+    secret_friend = draw.assign_secret_friends
+    Rails.logger.info("secret_friend: #{secret_friend}")
+
+    render json: secret_friend, status: :ok
   end
 end

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   # root 'home#index'
 
   post 'email' => 'draws#email'
+  post 'assign_friends' => 'draws#assign_friends'
 
   resources :draws
   resources :draw_users
