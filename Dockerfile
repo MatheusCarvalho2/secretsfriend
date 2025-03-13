@@ -14,7 +14,7 @@ ENV RAILS_ENV="development" \
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install -y --no-install-recommends  build-essential git libvips pkg-config
+    apt-get install -y --no-install-recommends sqlite3 build-essential git libvips pkg-config
 
 RUN gem install bundler -v 1.17.3
 COPY ./Gemfile ./Gemfile
